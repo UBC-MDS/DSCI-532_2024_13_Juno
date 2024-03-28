@@ -1,24 +1,18 @@
 # 1. Motivation and purpose
 
 Our role: Data science consultants
+
 Target audience: Employment policy makers
 
-There is a lot of data on gender biases in employment and on gender bias in leadership roles. Our dashboard can be used as a tool to explore this data. 
-Since our dashboard will allow for interactivity by filtering based on year, province, industry, etc, it could allow policy makers to identify where gender biases might be most extreme/most important to address. 
-Our tool will save policy makers time by presenting the data in an easy to use and interpretable manner which will help them to make efficient use of resources. This prevents them from having to do the "groundwork" of getting data and cleaning it etc which is not how policy makers should be spending their time. Furthermore, our dashboard will summarise important information so that policymakers can easily explore both general and specific trends in gender representation interactively. 
+There is an abundance of data on gender biases in employment and on gender bias in leadership roles. Our dashboard can be used as a tool to explore this data. Since our dashboard will allow for interactivity by filtering based on year, province, industry, and more, it could allow policy makers to identify where gender biases might be most extreme/most important to address. Our tool will save policy makers time by presenting the data in an easy to use and interpretable manner which will help them to make efficient use of resources. This prevents them from having to do the "groundwork" of getting data and cleaning it etc which is not how policy makers should be spending their time. Furthermore, our dashboard will summarise important information so that policymakers can easily explore both general and specific trends in gender representation interactively.
 
 # 2. Description of the data
 
-The data is obtained from Statistics Canada. Table 33-10-0501-01 Representation of women and men on boards of directors and in officer positions, by firm attributes
-(DOI: https://doi.org/10.25318/3310050101-eng)
+The data is obtained from Statistics Canada. Table 33-10-0501-01 Representation of women and men on boards of directors and in officer positions, by firm attributes (DOI: <https://doi.org/10.25318/3310050101-eng>)
 
-Statistics Canada’s Representation of women and men on boards of directors and in officer positions, by firm attributes data highlight women in leadership and strategic decision-making roles and women that lead the day-to-day operations within corporations conducting business in Canada. It allows the user to compare and analyze data based on industry, size (assets), province, country of control and type of corporation. For the purpose of this project, we only wish to focus on Canadian companies (we currently have 303,000 rows of data).
+Statistics Canada's Representation of women and men on boards of directors and in officer positions, by firm attributes data highlight women in leadership and strategic decision-making roles and women that lead the day-to-day operations within corporations conducting business in Canada. It allows the user to compare and analyze data based on industry, size (assets), province, country of control and type of corporation. For the purpose of this project, we only wish to focus on Canadian companies (we currently have 303,000 rows of data).
 
-We will work with the following data points:
-1. Gender
-2. Size of corporation (number of employees and size of company)
-3. Type of industry
-4. Position of the employee (Director, Top officers or Other officer)
+We will work with the following data points: 1. Gender 2. Size of corporation (number of employees and size of company) 3. Type of industry 4. Position of the employee (Director, Top officers or Other officer)
 
 # 3. Research questions
 
@@ -30,6 +24,6 @@ As a result, Marci decides to consult industry leaders and experts in the constr
 
 # 4. App sketch and description
 
-<img title="App sketch" src="/img/sketch.png">
+![](../img/sketch.png "App sketch")
 
-The app contains the landing page which shows the graph containing the % of women in the top leadership positions for all the provinces in Canada. The left-hand side of the page contains the filters to be applied to dive further. Filter options are available for province, year, and checklist for the corporation type and industries. The user can select a specific province to look into or restrict the year for which they want to consider the data. The province can be selected by clicking on the map or by using the dropdown. The top right corner displays the overall percentage of women and men and based on the filters applied, these numbers would be updated. Just below these overall numbers, we have 2 graphs, a pie chart showing the distribution across industries and a bar graph showing the distribution across the corporation types. We also have a line graph below the map which depicts the yearly trend showing the % of women and men at the top positions.
+This is a mock-up of what our app's landing page will look like. It shows the graph containing the % of women in the top leadership positions for all the provinces in Canada. The left-hand side of the page contains the filters to be applied to dive further. Filter options are available for province, year, and checklist for the corporation type and industries. The user can select a specific province to look into or restrict the year for which they want to consider the data. The province can be selected by clicking on the map or by using the dropdown. The top right corner displays the overall percentage of women and men and based on the filters applied, these numbers would be updated. Just below these overall numbers, we have 2 graphs, a pie chart showing the distribution across industries and a bar graph showing the distribution across the corporation types. We also have a line graph below the map which depicts the yearly trend showing the % of women and men at the top positions.

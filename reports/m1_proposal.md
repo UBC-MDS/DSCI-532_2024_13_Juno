@@ -8,7 +8,7 @@ There is an abundance of data on gender biases in employment and on gender bias 
 
 # 2. Description of the data
 
-The data is obtained from Statistics Canada. Table 33-10-0501-01 Representation of women and men on boards of directors and in officer positions, by firm attributes (DOI: <https://doi.org/10.25318/3310050101-eng>)
+The data is obtained from Statistics Canada. Table 33-10-0501-01 Representation of women and men on boards of directors and in officer positions, by firm attributes (DOI: <https://doi.org/10.25318/3310050101-eng>).
 
 Statistics Canada's Representation of women and men on boards of directors and in officer positions, by firm attributes data highlight women in leadership and strategic decision-making roles and women that lead the day-to-day operations within corporations conducting business in Canada. It allows the user to compare and analyze data based on industry, size (assets), province, country of control and type of corporation. For the purpose of this project, we only wish to focus on Canadian companies (we currently have 303,000 rows of data).
 

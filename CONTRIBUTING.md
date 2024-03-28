@@ -106,34 +106,15 @@ We appreciate as much detail as possible so we can replicate and address the bug
    git commit -m "Your detailed description of your changes."
    git push origin name-of-your-bugfix-or-feature
    ```
-7. Submit a pull request through the GitHub website.
-
-### Tips
-
-To run a subset of tests:
-
-```
-py.test tests.test_convertempPy
-```
-
-### Deploying
-
-A reminder for the maintainers on how to deploy:
-
-* Ensure the following secrets are recorded on GitHub:
-  * CODECOV_TOKEN
-  * PYPI_USERNAME
-  * PYPI_PASSWORD
-
-GitHub Actions should build and deploy to testPyPI when a pull request is merged into master.
+5. Submit a pull request through the GitHub website.
 
 ### A Friendly Reminder
 
-Remember, doeasyeda is a community-driven project. Your contributions, whether large or small, are incredibly valuable to us. We strive to create a welcoming and inclusive environment, so we encourage you to join us in developing this project!
+Remember, Juno is a community-driven project. Your contributions, whether large or small, are incredibly valuable to us. We strive to create a welcoming and inclusive environment, so we encourage you to join us in developing this project!
 
 ## Code of Conduct
 
-Please note that this project is released with a [Code of Conduct](https://github.com/UBC-MDS/doeasyeda/blob/main/CONDUCT.md). By contributing to this project you agree to abide by its terms.
+Please note that this project is released with a [Code of Conduct](https://github.com/UBC-MDS/DSCI-532_2024_13_Juno/blob/main/CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
 
 ### Attribution
 

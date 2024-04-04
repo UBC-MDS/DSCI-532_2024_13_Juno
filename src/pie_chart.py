@@ -11,15 +11,21 @@ df = pd.read_csv('data/filtered/pie_chart_data.csv')
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Layout
+# app.layout = dbc.Container([
+#     dvc.Vega(id='pie-chart', spec={}),
+#     dcc.Dropdown(id='year', options=df["REF_DATE"], value='2016'),
+#     dcc.Dropdown(id='industry', options=df["Industry"], value='Finance')
+# ])
+
 app.layout = dbc.Container([
-    dvc.Vega(id='scatter', spec={}),
-    dcc.Dropdown(id='year', options=df["REF_DATE"], value='2016'),
-    dcc.Dropdown(id='industry', options=df["Industry"], value='Finance')
+    dvc.Vega(id='pie-chart', spec={}),
+    dcc.Dropdown(id='year', options=[{'label': year, 'value': year} for year in df["REF_DATE"].unique()], value='2016'),
+    dcc.Dropdown(id='industry', options=[{'label': industry, 'value': industry} for industry in df["Industry"].unique()], value='Finance')
 ])
 
 # Server side callbacks/reactivity
 @callback(
-    Output('scatter', 'spec'),
+    Output('pie-chart', 'spec'),
     Input('year', 'value'),
     Input('industry', 'value')
 )

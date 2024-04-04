@@ -27,25 +27,20 @@ app.layout = dbc.Container([
     Input('industry', 'value')
 )
 
-# def filter_data(df, year, industry):
-#     # return df[(df["Industry"] == industry) & (df["REF_DATE"] == year)]
-#     filtered_rows = []
-#     for index, row in df.iterrows():
-#         if row["Industry"] == industry and row["REF_DATE"] == year:
-#             filtered_rows.append(row)
-#     return pd.DataFrame(filtered_rows)
-
-def create_chart(year, industry):
+def create_chart(df, year, industry):
     
-    #filtered_df = filter_data(df, year, industry)
+    filtered_rows = []
+    for index, row in df.iterrows():
+        if row["Industry"] == industry and row["REF_DATE"] == year:
+            filtered_rows.append(row)
+    filtered_df = pd.DataFrame(filtered_rows)
 
-    chart = alt.Chart(df).mark_arc().encode(
+    chart = alt.Chart(filtered_df).mark_arc().encode(
         theta="VALUE",
         color="Gender"
     )
 
-    return chart.to_dict()
-
+    return chart
 
 # Run the app/dashboard
 if __name__ == '__main__':

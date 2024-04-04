@@ -5,44 +5,36 @@ import altair as alt
 #from vega_datasets import data
 import pandas as pd
 
-df = pd.read_csv('data/raw/filtered_canada.csv')
+df = pd.read_csv('data/filtered/pie_chart_data.csv')
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Layout
 app.layout = dbc.Container([
-    dcc.Graph(id='pie-chart'),
+    dvc.Vega(id='scatter', spec={}),
     dcc.Dropdown(id='year', options=df["REF_DATE"], value='2016'),
+    dcc.Dropdown(id='industry', options=df["Industry"], value='Finance')
 ])
 
 # Server side callbacks/reactivity
 @callback(
-    #Output('scatter', 'spec'),
-    Output('pie-chart', 'figure'),
-    Input('x-col', 'value')
-    
-
+    Output('scatter', 'spec'),
+    Input('year', 'value'),
+    Input('industry', 'value')
 )
-# def create_chart(x_col):
-#     return(
-#         alt.Chart(data).mark_point().encode(
-#             x=x_col,
-#             y='Miles_per_Gallon',
-#             tooltip='Origin'
-#         ).interactive().to_dict()
-#     )
-def create_pie_chart(x_col):
-    return {
-        'data': [{
-            'labels': df[x_col].value_counts().index.tolist(),
-            'values': df[x_col].value_counts().values.tolist(),
-            'type': 'pie'
-        }],
-        'layout': {
-            'title': f'Pie Chart of {x_col}'
-        }
-    }
+
+def create_chart(year, industry):
+
+    chart_df = df[(df["Industry"] == industry) &
+                     (df["REF_DATE"] == year)]
+    return(
+        alt.Chart(chart_df).mark_arc().encode(
+            theta="VALUE",
+            color="Gender"
+        )
+    )
+
 
 # Run the app/dashboard
 if __name__ == '__main__':

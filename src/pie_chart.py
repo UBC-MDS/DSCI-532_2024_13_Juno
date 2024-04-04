@@ -7,6 +7,7 @@ import pandas as pd
 
 df = pd.read_csv('data/filtered/pie_chart_data.csv')
 
+
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -15,32 +16,29 @@ app.layout = dbc.Container([
     dvc.Vega(id='pie-chart', spec={}),
     html.P(html.Br()),
     html.Label('Select a Year'),
-    dcc.Dropdown(id='year', options=[{'label': year, 'value': year} for year in df["REF_DATE"].unique()], value='2016'),
+    dcc.Dropdown(id='year', options=df["REF_DATE"].unique().tolist(), value = 2016),
     html.Label('Select an Industry'),
-    dcc.Dropdown(id='industry', options=[{'label': industry, 'value': industry} for industry in df["Industry"].unique()], value='Finance')
+    dcc.Dropdown(id='industry', options = df["Industry"].unique().tolist(), value ='Finance')
 ])
 
 # Server side callbacks/reactivity
 @callback(
     Output('pie-chart', 'spec'),
     Input('year', 'value'),
-    Input('industry', 'value')
+    Input('industry', 'value'),
 )
 
-def create_chart(df, year, industry):
-    
-    filtered_rows = []
-    for index, row in df.iterrows():
-        if row["Industry"] == industry and row["REF_DATE"] == year:
-            filtered_rows.append(row)
-    filtered_df = pd.DataFrame(filtered_rows)
+def create_chart(industry, year):
+
+    # Issue is with industry and year datatype - not recognised by pandas, so it returns empty df (filtered_df)
+    filtered_df = df[(df["Industry"] == "Finance") & (df["REF_DATE"] == 2016)]
 
     chart = alt.Chart(filtered_df).mark_arc().encode(
         theta="VALUE",
         color="Gender"
     )
 
-    return chart
+    return chart.to_dict()
 
 # Run the app/dashboard
 if __name__ == '__main__':

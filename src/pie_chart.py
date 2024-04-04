@@ -13,6 +13,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 # Layout
 app.layout = dbc.Container([
     dvc.Vega(id='pie-chart', spec={}),
+    html.P(html.Br()),
     html.Label('Select a Year'),
     dcc.Dropdown(id='year', options=[{'label': year, 'value': year} for year in df["REF_DATE"].unique()], value='2016'),
     html.Label('Select an Industry'),
@@ -26,15 +27,18 @@ app.layout = dbc.Container([
     Input('industry', 'value')
 )
 
-def create_chart(year, industry):
+# def filter_data(df, year, industry):
+#     # return df[(df["Industry"] == industry) & (df["REF_DATE"] == year)]
+#     filtered_rows = []
+#     for index, row in df.iterrows():
+#         if row["Industry"] == industry and row["REF_DATE"] == year:
+#             filtered_rows.append(row)
+#     return pd.DataFrame(filtered_rows)
 
-    # chart_df = df[(df["Industry"] == industry) &
-    #                  (df["REF_DATE"] == year)]
+def create_chart(year, industry):
     
-    # if chart_df.empty:
-    #     return {}
-    
-    # Create Altair chart specification
+    #filtered_df = filter_data(df, year, industry)
+
     chart = alt.Chart(df).mark_arc().encode(
         theta="VALUE",
         color="Gender"

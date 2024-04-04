@@ -33,7 +33,7 @@ def create_chart(industry):
         color = 'Gender:N',
         tooltip = ['Gender:N', 'VALUE:Q']
     ).properties(
-        title='Number of Men and Women in the {} Industry Over the Years'.format(industry),
+        title='Number of Men and Women in {} Over the Years'.format(industry),
         width=600,
         height=400
     )

@@ -8,12 +8,20 @@ import plotly.graph_objs as go
 # Filter the data for a pie chart by province and year
 df = pd.read_csv("data/raw/filtered_canada.csv")
 
+# new_df = df[(df['Type of corporation'] == 'Total all corporations') & 
+#             (df['Industry'] == 'Total all industries') & 
+#             (df["Size of enterprise"] == "Total all sizes") &
+#             (df["Unit of measure"] == "Number") &
+#             (df["Executive"] == "All officers\xa0") &
+#             (df["GEO"] != "Canada, total") &
+#             (df["GEO"] != "Unclassified province or territory")
+# ].copy()
+
 new_df = df[(df['Type of corporation'] == 'Total all corporations') & 
             (df['Industry'] == 'Total all industries') & 
             (df["Size of enterprise"] == "Total all sizes") &
             (df["Unit of measure"] == "Number") &
             (df["Executive"] == "All officers\xa0") &
-            (df["GEO"] != "Canada, total") &
             (df["GEO"] != "Unclassified province or territory")
 ].copy()
 new_df = new_df.loc[:, ["REF_DATE", "Gender", "GEO", "VALUE"]]
@@ -113,20 +121,6 @@ def calculate_proportion(province_filter, industry_filter, year_filter):
     return card_women_content, card_men_content
 
 
-
-
-
-
-# Layout
-# app.layout = dbc.Container([
-#     dbc.Col(dvc.Vega(id='pie-chart', spec={})),
-#     dbc.Col(dvc.Vega(id='line-chart', spec={})),
-#     html.P(html.Br()),
-#     dbc.Col(html.Label('Select a Year')),
-#     dcc.Dropdown(id='year-filter', options=df["REF_DATE"].unique().tolist(), value = 2016),
-#     html.Label('Select a Province Here'),
-#     dcc.Dropdown(id='province-filter', options = df["GEO"].unique().tolist(), value ='British Columbia')
-# ])
 
 # Server side callbacks/reactivity
 @callback(

@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 import altair as alt
 import pandas as pd
+import plotly.graph_objs as go
 
 # Filter the data for a pie chart by province and year
 df = pd.read_csv("data/raw/filtered_canada.csv")
@@ -65,7 +66,8 @@ app.layout = dbc.Container([
             ],
             md=8
         ),
-    dbc.Row(dvc.Vega(id='pie-chart', spec={}))
+    dbc.Row(dvc.Vega(id='pie-chart', spec={})), 
+    dbc.Row(dcc.Graph(id='bar-chart'))
     ])
 ])
 
@@ -167,6 +169,33 @@ def create_chart(prov):
     )
 
     return chart.to_dict()
+
+
+@app.callback(
+    Output('bar-chart', 'figure'),
+    [Input('year-filter', 'value'),
+     Input('province-filter', 'value')]
+)
+def update_chart(year, province):
+    df = pd.read_csv('data/filtered/bar_chart_data.csv')
+    # Filter the DataFrame based on selected year and province
+    filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province)]
+
+    # Group the filtered DataFrame by 'Type of corporation' and 'Gender' and count occurrences
+    grouped_df = filtered_df.groupby(['Type of corporation', 'Gender'])['VALUE'].sum().unstack(fill_value=0)
+    
+    # Create clustered bar chart with data labels
+    data = []
+    if 'Men' in grouped_df.columns:
+        data.append(go.Bar(x=grouped_df.index, y=grouped_df['Men'], name='Men', text=grouped_df['Men'], textposition='inside'))
+    if 'Women' in grouped_df.columns:
+        data.append(go.Bar(x=grouped_df.index, y=grouped_df['Women'], name='Women', text=grouped_df['Women'], textposition='inside'))
+
+    layout = go.Layout(barmode='group', title='Distribution by Type of corporation and Gender', xaxis=dict(title='Type of corporation'), yaxis=dict(title='Count'))
+
+    return {'data': data, 'layout': layout}
+
+
 
 
 # Run the app/dashboard

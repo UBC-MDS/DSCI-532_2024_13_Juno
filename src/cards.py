@@ -55,6 +55,12 @@ app.layout = dbc.Container([
     Input('year-filter', 'value'),
 )
 def calculate_proportion(province_filter, industry_filter, year_filter):
+    # There is no need to drop na for card_data because there are no NAs in this filtered dataset, but this is the code to check
+    # For this and drop NA if needed in the future
+    # print(f'Card_df shape: {card_data.shape}')
+    # print(f"NA values in card df: {card_data['VALUE'].isna().sum()}")
+    # card_data.dropna(subset=['VALUE'], inplace=True)
+
     # Implementing filtering based on widgets
     # Bug with filtering everything at once - will filter step wise until I find a solution
     geo_filtered_data = card_data[card_data['GEO'] == province_filter]

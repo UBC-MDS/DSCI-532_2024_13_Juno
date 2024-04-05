@@ -44,7 +44,7 @@ server = app.server
 card_data = pd.read_csv('data/filtered/cards_data.csv')
 # Components
 
-title = [html.H1('Juno'), html.Br()]
+title = [html.H1('Juno: Gender Equality in Executive Positions Across Canada'), html.Br()]
 province_columns = card_data['GEO'].unique()#.remove('Unclassified province or territory')
 province_columns = province_columns[province_columns!='Unclassified province or territory']
 industry_columns = card_data['Industry'].unique()
@@ -53,13 +53,15 @@ global_widgets = [
     dbc.Label('Filter on Province'),
     dcc.Dropdown(id='province-filter', options=province_columns, value='Canada, total'),
     html.Br(),
-    dbc.Label('Filter on Industry'),
-    dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries'),
     dbc.Label('Filter on Year'),
     dcc.Dropdown(id='year-filter', options=time_columns, value= 2016)  # Might want to consider a multi-filter option for year
 ]
 card_women = dbc.Card(id='card-women')
 card_men = dbc.Card(id='card-men')
+
+
+
+industry = dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries'),
 
 # Layout
 app.layout = dbc.Container([
@@ -68,14 +70,14 @@ app.layout = dbc.Container([
         dbc.Col(global_widgets, md=4),
         dbc.Col(
             [
-                dbc.Row([dbc.Col(card_women), dbc.Col(card_men)]), 
-                dbc.Row(dvc.Vega(id='line-chart', spec={})),
+                dbc.Row([dbc.Col(card_women), dbc.Col(card_men), dbc.Col(industry) ])
 
             ],
-            md=8
+            md= "8"
         ),
-    dbc.Row(dcc.Graph(id='bar2-chart')), 
-    dbc.Row(dcc.Graph(id='bar-chart'))
+    dbc.Row(dvc.Vega(id='line-chart')),
+    dbc.Row(dcc.Graph(id='bar-chart')),
+    dbc.Row(dcc.Graph(id='bar2-chart'))
     ])
 ])
 
@@ -163,10 +165,11 @@ def create_chart(prov):
         tooltip = ['Gender:N', 'VALUE:Q']
     ).properties(
         title='Number of Men and Women in {} Over the Years'.format(prov),
-        width=600,
-        height=400
+        width=1200,
+        height=200
+    ).configure_axis(
+    labelAngle=0
     )
-
     return chart.to_dict()
 
 

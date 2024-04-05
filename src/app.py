@@ -46,7 +46,8 @@ card_data = pd.read_csv('data/filtered/cards_data.csv')
 # Components
 
 title = [html.H1('Juno'), html.Br()]
-province_columns = card_data['GEO'].unique()
+province_columns = card_data['GEO'].unique()#.remove('Unclassified province or territory')
+province_columns = province_columns[province_columns!='Unclassified province or territory']
 industry_columns = card_data['Industry'].unique()
 time_columns = card_data['REF_DATE'].unique()
 global_widgets = [

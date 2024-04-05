@@ -28,11 +28,12 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Layout
 app.layout = dbc.Container([
-    dvc.Vega(id='pie-chart', spec={}),
+    dbc.Col(dvc.Vega(id='pie-chart', spec={})),
+    dbc.Col(dvc.Vega(id='line-chart', spec={})),
     html.P(html.Br()),
-    html.Label('Select a Year'),
+    dbc.Col(html.Label('Select a Year')),
     dcc.Dropdown(id='year', options=df["REF_DATE"].unique().tolist(), value = 2016),
-    html.Label('Select a Province'),
+    html.Label('Select a Province Here'),
     dcc.Dropdown(id='prov', options = df["GEO"].unique().tolist(), value ='British Columbia')
 ])
 
@@ -42,7 +43,6 @@ app.layout = dbc.Container([
     Input('year', 'value'),
     Input('prov', 'value'),
 )
-
 def create_chart(year, prov):
 
     # Issue is with industry and year datatype - not recognised by pandas, so it returns empty df (filtered_df)
@@ -55,11 +55,30 @@ def create_chart(year, prov):
         tooltip=['Gender:N', 'VALUE:Q']).properties(
         title="Number of Women vs Men in Executive Positions"
 )
-
-
     return chart.to_dict()
 
 
+# Server side callbacks/reactivity
+@callback(
+    Output('line-chart', 'spec'),
+    Input('prov', 'value'),
+)
+def create_chart(prov):
+    filtered_df = df[(df["GEO"] == prov)]
+
+    chart = alt.Chart(filtered_df).mark_line().encode(
+        x = alt.X('REF_DATE:O', axis=alt.Axis(title='Year')),
+        y = alt.Y('VALUE:Q', axis=alt.Axis(title='Number of People')),
+        color = 'Gender:N',
+        tooltip = ['Gender:N', 'VALUE:Q']
+    ).properties(
+        title='Number of Men and Women in {} Over the Years'.format(prov),
+        width=600,
+        height=400
+    )
+
+    return chart.to_dict()
+
 # Run the app/dashboard
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1')
+    app.run(debug=True, host='127.0.0.1', port = 8050)

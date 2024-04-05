@@ -164,7 +164,7 @@ def create_chart(prov):
         color = 'Gender:N',
         tooltip = ['Gender:N', 'VALUE:Q']
     ).properties(
-        title='Number of Men and Women in {} Over the Years'.format(prov),
+        title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
         width=1200,
         height=200
     ).configure_axis(

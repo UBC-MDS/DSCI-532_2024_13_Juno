@@ -29,7 +29,7 @@ df = pd.read_csv('data/filtered/province_data.csv')
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
+server = app.server
 
 
 
@@ -171,4 +171,4 @@ def create_chart(prov):
 
 # Run the app/dashboard
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port = 8050)
+    app.run(debug=False, host='127.0.0.1', port = 8050)

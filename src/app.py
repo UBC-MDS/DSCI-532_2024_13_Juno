@@ -30,7 +30,7 @@ new_df.head()
 new_df.to_csv('data/filtered/province_data.csv', index=False)
 new_df["GEO"].unique()
 df = pd.read_csv('data/filtered/province_data.csv')
-
+#############
 
 
 
@@ -44,7 +44,7 @@ server = app.server
 card_data = pd.read_csv('data/filtered/cards_data.csv')
 # Components
 
-title = [html.H1('Juno'), html.Br()]
+title = [html.H1('Juno: Gender Equality in Executive Positions Across Canada'), html.Br()]
 province_columns = card_data['GEO'].unique()#.remove('Unclassified province or territory')
 province_columns = province_columns[province_columns!='Unclassified province or territory']
 industry_columns = card_data['Industry'].unique()
@@ -53,13 +53,15 @@ global_widgets = [
     dbc.Label('Filter on Province'),
     dcc.Dropdown(id='province-filter', options=province_columns, value='Canada, total'),
     html.Br(),
-    dbc.Label('Filter on Industry'),
-    dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries'),
     dbc.Label('Filter on Year'),
     dcc.Dropdown(id='year-filter', options=time_columns, value= 2016)  # Might want to consider a multi-filter option for year
 ]
 card_women = dbc.Card(id='card-women')
 card_men = dbc.Card(id='card-men')
+
+
+
+industry = dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries'),
 
 # Layout
 app.layout = dbc.Container([
@@ -68,14 +70,14 @@ app.layout = dbc.Container([
         dbc.Col(global_widgets, md=4),
         dbc.Col(
             [
-                dbc.Row([dbc.Col(card_women), dbc.Col(card_men)]), 
-                dbc.Row(dvc.Vega(id='line-chart', spec={})),
+                dbc.Row([dbc.Col(card_women), dbc.Col(card_men), dbc.Col(industry) ])
 
             ],
-            md=8
+            md= "8"
         ),
-    dbc.Row(dvc.Vega(id='pie-chart', spec={})), 
-    dbc.Row(dcc.Graph(id='bar-chart'))
+    dbc.Row(dvc.Vega(id='line-chart')),
+    dbc.Row(dcc.Graph(id='bar-chart')),
+    dbc.Row(dcc.Graph(id='bar2-chart'))
     ])
 ])
 
@@ -123,24 +125,29 @@ def calculate_proportion(province_filter, industry_filter, year_filter):
 
 
 # Server side callbacks/reactivity
-@callback(
-    Output('pie-chart', 'spec'),
-    Input('year-filter', 'value'),
-    Input('province-filter', 'value'),
+@app.callback(
+    Output('bar2-chart', 'figure'),
+    [Input('year-filter', 'value'),
+     Input('province-filter', 'value')]
 )
-def create_chart(year_filter, province_filter):
+def update_chart(year, province):
+    df = pd.read_csv('data/filtered/bar_chart2_data.csv')
+    # Filter the DataFrame based on selected year and province
+    filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province)]
 
-    # Issue is with industry and year datatype - not recognised by pandas, so it returns empty df (filtered_df)
-    filtered_df = df[(df["GEO"] == province_filter) & (df["REF_DATE"] == year_filter)]
-
+    # Group the filtered DataFrame by 'Type of corporation' and 'Gender' and count occurrences
+    grouped_df = filtered_df.groupby(['Industry', 'Gender'])['VALUE'].sum().unstack(fill_value=0)
     
-    chart = alt.Chart(filtered_df).mark_arc().encode(
-        theta="VALUE",
-        color="Gender", 
-        tooltip=['Gender:N', 'VALUE:Q']).properties(
-        title="Number of Women vs Men in Executive Positions"
-)
-    return chart.to_dict()
+    # Create clustered bar chart with data labels
+    data = []
+    if 'Men' in grouped_df.columns:
+        data.append(go.Bar(x=grouped_df.index, y=grouped_df['Men'], name='Men', text=grouped_df['Men'], textposition='inside'))
+    if 'Women' in grouped_df.columns:
+        data.append(go.Bar(x=grouped_df.index, y=grouped_df['Women'], name='Women', text=grouped_df['Women'], textposition='inside'))
+
+    layout = go.Layout(barmode='group', title='Distribution by Industry and Gender', xaxis=dict(title='Industry'), yaxis=dict(title='Count'))
+
+    return {'data': data, 'layout': layout}
 
 
 # Server side callbacks/reactivity
@@ -157,11 +164,12 @@ def create_chart(prov):
         color = 'Gender:N',
         tooltip = ['Gender:N', 'VALUE:Q']
     ).properties(
-        title='Number of Men and Women in {} Over the Years'.format(prov),
-        width=600,
-        height=400
+        title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
+        width=1200,
+        height=200
+    ).configure_axis(
+    labelAngle=0
     )
-
     return chart.to_dict()
 
 
@@ -193,4 +201,4 @@ def update_chart(year, province):
 
 # Run the app/dashboard
 if __name__ == '__main__':
-    app.run(debug=False, host='127.0.0.1', port = 8050)
+    app.run(debug=True, host='127.0.0.1', port = 8052)

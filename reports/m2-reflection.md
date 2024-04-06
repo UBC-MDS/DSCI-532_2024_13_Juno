@@ -36,10 +36,8 @@ We think that our dashboard currently has a minimalist, easy-to-use interface, a
 
 ## Future Improvements and Additions
 
-Our app currently has only 3 charts and 1 set of summary cards. We
+We find our app layout to be understandable and easily navigable. However, we have not had an opportunity to test this with a larger audience. It might be useful to test the app with our peers to get opinions on how we might improve the layout of features for our app. We might also include labels and headers to explain how users can use the information in different sections, and our motivations for creating the different graphs. However, this might also over-crowd the app, so we want to wait for feedback from our peers before implementing this.
 
-engineered features
+We find the colour palette appropriate, but might consider changing the colour scheme to match the context of our data (for example, using blue and pink instead of orange), or to improve visibility for colour blind users.
 
-label different sections and explain motivatons
-
-get people to try out our app and reorganise layout to be easy to read for everyone
+Our app currently has only 3 charts and 1 set of summary cards. We might include more diverse charts or summaries to highlight interesting trends in data, like stacked bar charts which might add visual interest. It might also be interesting to have a separate section allowing users to deep dive into statistics from one industry or province, and compare those statistics to the national average, or to all the other industries or provinces.

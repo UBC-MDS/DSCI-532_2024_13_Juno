@@ -28,7 +28,7 @@ Instead of highlighting the percentage of females and males in the bar charts, w
 
 ## What We Have Not Implemented Yet:
 
-One notable missing chart is the geospatial static map showing the percentage of women in top positions in each province. Given the short timeframe for submission, for this milestone, we decided to focus on producing a minimum viable product to the best of our ability with the simpler charts as we explored putting a dashboard together for the first time. We aim to implement this in future milestones.
+One notable missing chart is the geospatial static map showing the percentage of women in top positions in each province. Given the short timeframe for the submission of this milestone and our inexperience with dashboards, we decided to focus on producing a minimum viable product to the best of our ability with the simpler charts for now. We aim to implement this in future milestones.
 
 ## Strengths 
 
@@ -36,8 +36,12 @@ We think that our dashboard currently has a minimalist, easy-to-use interface, a
 
 ## Future Improvements and Additions
 
-We find our app layout to be understandable and easily navigable. However, we have not had an opportunity to test this with a larger audience. It might be useful to test the app with our peers to get opinions on how we might improve the layout of features for our app. We might also include labels and headers to explain how users can use the information in different sections, and our motivations for creating the different graphs. However, this might also over-crowd the app, so we want to wait for feedback from our peers before implementing this.
-
-We find the colour palette appropriate, but might consider changing the colour scheme to match the context of our data (for example, using blue and pink instead of orange), or to improve visibility for colour blind users.
+**Statistics**
 
 Our app currently has only 3 charts and 1 set of summary cards. We might include more diverse charts or summaries to highlight interesting trends in data, like stacked bar charts which might add visual interest. It might also be interesting to have a separate section allowing users to deep dive into statistics from one industry or province, and compare those statistics to the national average, or to all the other industries or provinces.
+
+**Layout and Style**
+
+We find our app layout to be understandable and easily navigable. However, we have not had an opportunity to test this with a larger audience. It might be useful to test the app with our peers to get opinions on how we might improve the layout of features for our app. Labels and headers explaining how users can use the information in different sections, and our motivations for creating the different graphs might also be useful. However, this might also over-crowd the app, so we want to wait for feedback from our peers before implementing this. We find the current colour palette appropriate, but might consider changing the colour scheme to match the context of our data (for example, using blue and pink instead of orange), or to improve visibility for colour blind users.
+
+Lastly, we could consider adding stylistic elements, like an icon for our app or playing with the font, to add visual interest and allow our dashboard to stand out.

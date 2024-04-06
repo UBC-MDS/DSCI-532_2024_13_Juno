@@ -28,14 +28,18 @@ Instead of highlighting the percentage of females and males in the bar charts, w
 
 ## What We Have Not Implemented Yet:
 
-One notable missing chart is the geospatial static map showing the
+One notable missing chart is the geospatial static map showing the percentage of women in top positions in each province. Given the short timeframe for submission, for this milestone, we decided to focus on producing a minimum viable product to the best of our ability with the simpler charts as we explored putting a dashboard together for the first time. We aim to implement this in future milestones.
 
 ## Strengths 
 
-We think that our dashboard currently has a minimalist, easy-to-use interface, and we have done our best to accommodate
+We think that our dashboard currently has a minimalist, easy-to-use interface, and we have done our best to accommodate users with poor eyesight or colour blindness with the call backs and clear labelling. We found the few filters we chose were useful in subsetting the data in interesting ways, and the cards and graphs all work as expected. Our graphs also change in title based on the filters chose, which provides convenience to users who might want an easy way to check the filters they are using instead of constantly scrolling to the filter section.
 
 ## Future Improvements and Additions
 
-Limitations
+Our app currently has only 3 charts and 1 set of summary cards. We
 
 engineered features
+
+label different sections and explain motivatons
+
+get people to try out our app and reorganise layout to be easy to read for everyone

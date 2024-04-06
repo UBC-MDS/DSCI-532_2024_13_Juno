@@ -78,6 +78,20 @@ app.layout = dbc.Container([
     dbc.Row(dvc.Vega(id='line-chart')),
     dbc.Row(dcc.Graph(id='bar-chart')),
     dbc.Row(dcc.Graph(id='bar2-chart'))
+    ]),
+    html.Footer([
+        html.P(''),
+        html.Hr(),
+        html.P(
+            'This project scrutinizes the gender disparity in top-level leadership roles within Canadian corporations '
+            'across multiple sectors. Leveraging gender-disaggregated data, we aim to reveal the potential influence '
+            'of gender balance in decision-making roles on more effective and inclusive policies. The displayed dashboards '
+            'are filtered based on the selected tags, showing only those that match all selected tags. Tag counts are updated '
+            'dynamically to reflect the number of visible dashboards after filtering. For optimal viewing, this dashboard '
+            'is recommended for a full-width window.',
+            style={'font-size': '12px', 'margin-bottom': '10px'}),        
+        html.P('Last updated on April 6, 2024.', style={'font-size': '12px', 'margin-bottom': '10px'}),
+        html.A('The source code can be found on GitHub.', href='https://github.com/UBC-MDS/DSCI-532_2024_13_Juno', style={'font-size': '14px', 'margin-bottom': '10px'})
     ])
 ])
 
@@ -151,27 +165,60 @@ def update_chart(year, province):
 
 
 # Server side callbacks/reactivity
+# OLD CHART WITHOUT MARKER
+# @callback(
+#     Output('line-chart', 'spec'),
+#     Input('province-filter', 'value'),
+# )
+# def create_chart(prov):
+#     filtered_df = df[(df["GEO"] == prov)]
+
+#     chart = alt.Chart(filtered_df).mark_line().encode(
+#         x = alt.X('REF_DATE:O', axis=alt.Axis(title='Year')),
+#         y = alt.Y('VALUE:Q', axis=alt.Axis(title='Number of People')),
+#         color = 'Gender:N',
+#         tooltip = ['Gender:N', 'VALUE:Q']
+#     ).properties(
+#         title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
+#         width=1200,
+#         height=200
+#     ).configure_axis(
+#     labelAngle=0
+#     )
+#     return chart.to_dict()
+
 @callback(
     Output('line-chart', 'spec'),
-    Input('province-filter', 'value'),
+    [Input('province-filter', 'value'),
+     Input('year-filter', 'value')]
 )
-def create_chart(prov):
+def create_chart(prov, selected_year):
     filtered_df = df[(df["GEO"] == prov)]
 
     chart = alt.Chart(filtered_df).mark_line().encode(
-        x = alt.X('REF_DATE:O', axis=alt.Axis(title='Year')),
-        y = alt.Y('VALUE:Q', axis=alt.Axis(title='Number of People')),
-        color = 'Gender:N',
-        tooltip = ['Gender:N', 'VALUE:Q']
+        x=alt.X('REF_DATE:O', axis=alt.Axis(title='Year')),
+        y=alt.Y('VALUE:Q', axis=alt.Axis(title='Number of People')),
+        color='Gender:N',
+        tooltip=['Gender:N', 'VALUE:Q']
     ).properties(
         title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
         width=1200,
         height=200
-    ).configure_axis(
-    labelAngle=0
     )
-    return chart.to_dict()
 
+    if selected_year is not None:
+        rule = alt.Chart(pd.DataFrame({'selected_year': [selected_year]})).mark_rule(color='red').encode(
+            x='selected_year:O'
+        ).transform_filter(
+            alt.FieldEqualPredicate(field='selected_year', equal=selected_year)
+        )
+        chart_with_marker = chart + rule
+    else:
+        chart_with_marker = chart
+
+    return chart_with_marker.configure_axis(
+        labelAngle=0
+    ).to_dict()
 
 @app.callback(
     Output('bar-chart', 'figure'),

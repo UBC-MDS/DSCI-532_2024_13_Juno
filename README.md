@@ -8,7 +8,11 @@ Ancient Romans worshipped Juno as the queen of the gods, the female counterpart 
 
 # Motivation
 
-Despite progress in workplace diversity initiatives, gender disparity remains a pervasive issue at the highest levels of leadership, with men disproportionately represented compared to women. Our dashboard app aims to shed light on this disparity by providing visual insights into the gender composition of top-level leadership, highlighting the need for continued efforts to achieve gender equality and foster inclusive workplaces.
+## The Problem: 
+Despite progress in workplace diversity initiatives, gender disparity remains a pervasive issue at the highest levels of leadership, with men disproportionately represented compared to women. 
+
+## The Solution:
+Our dashboard app aims to shed light on this disparity by providing visual insights into the gender composition of top-level leadership, highlighting the need for continued efforts to achieve gender equality and foster inclusive workplaces. The dashboard allows the user to deepdive in several aspects such as Types of Corporation, Industries or Provinces and also look into specific years.
 
 # How to use this app
 

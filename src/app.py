@@ -76,8 +76,7 @@ app.layout = dbc.Container([
             md= "8"
         ),
     dbc.Row(dvc.Vega(id='line-chart')),
-    dbc.Row(dcc.Graph(id='bar-chart')),
-    dbc.Row(dcc.Graph(id='bar2-chart'))
+    dbc.Row([dbc.Col(dcc.Graph(id='bar-chart')), dbc.Col(dcc.Graph(id='bar2-chart'))])
     ]),
     html.Footer([
         html.P(''),
@@ -162,30 +161,6 @@ def update_chart(year, province):
     layout = go.Layout(barmode='group', title='Distribution by Industry and Gender', xaxis=dict(title='Industry'), yaxis=dict(title='Count'))
 
     return {'data': data, 'layout': layout}
-
-
-# Server side callbacks/reactivity
-# OLD CHART WITHOUT MARKER
-# @callback(
-#     Output('line-chart', 'spec'),
-#     Input('province-filter', 'value'),
-# )
-# def create_chart(prov):
-#     filtered_df = df[(df["GEO"] == prov)]
-
-#     chart = alt.Chart(filtered_df).mark_line().encode(
-#         x = alt.X('REF_DATE:O', axis=alt.Axis(title='Year')),
-#         y = alt.Y('VALUE:Q', axis=alt.Axis(title='Number of People')),
-#         color = 'Gender:N',
-#         tooltip = ['Gender:N', 'VALUE:Q']
-#     ).properties(
-#         title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
-#         width=1200,
-#         height=200
-#     ).configure_axis(
-#     labelAngle=0
-#     )
-#     return chart.to_dict()
 
 @callback(
     Output('line-chart', 'spec'),

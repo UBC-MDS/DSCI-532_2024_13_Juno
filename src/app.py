@@ -23,8 +23,33 @@ new_df["GEO"].unique()
 df = pd.read_csv('data/filtered/province_data.csv')
 #############
 
+# Map data loaded
+canadian_provinces = pd.read_csv('data/filtered/map_chart_data.csv')
 
 
+# Plotting the map of Canada and the 
+chart = alt.Chart(canadian_provinces, width=600, height=500).mark_geoshape(stroke='white').project(
+    'transverseMercator',
+    rotate=[90, 0, 0]
+).encode(
+    tooltip=['name','prop_women'],
+    color=alt.Color('prop_women', 
+                    scale=alt.Scale(domain=[0, 1], 
+                                    scheme='viridis'), 
+                    title='Proportion of Women')
+).properties(
+    title = "Overall Proportion Across Provinces"
+)
+labels = alt.Chart(canadian_provinces).mark_text().encode(
+    longitude='longitude:Q',
+    latitude='latitude:Q',
+    text='postal',
+    size=alt.value(10),
+    opacity=alt.value(0.8),
+)
+
+combined_chart = chart+labels
+combined_chart
 
 
 # Initialize the app
@@ -59,14 +84,11 @@ app.layout = dbc.Container([
     dbc.Row(dbc.Col(title)),
     dbc.Row([
         dbc.Col(global_widgets, md=6),
-        dbc.Col(
-            [
+        dbc.Col([
                 dbc.Card([dbc.Col(industry), dbc.Col(card_women), dbc.Col(card_men)])
-
-            ],
-            sm= "6"
-        ),
-        dbc.Row(dvc.Vega(id='line-chart')),
+                ],sm= "6"),
+        dbc.Row([dvc.Vega(id="altair-chart",opt = {"rendered":"svg", "actions":False},spec=combined_chart.to_dict())]),        
+        dbc.Row([dbc.Col(dvc.Vega(id='line-chart'), width = 8)]),
         dbc.Row([dbc.Col(dcc.Graph(id='bar-chart')), dbc.Col(dcc.Graph(id='bar2-chart'))])
     ]),
     html.Footer([

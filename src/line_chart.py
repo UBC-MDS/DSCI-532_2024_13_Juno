@@ -49,9 +49,9 @@ def create_chart(prov, selected_year):
     chart = alt.Chart(province_gender_ratio).mark_line().encode(
         x=alt.X('Year:O', axis=alt.Axis(title='Year')),
         y=alt.Y('Ratio:Q', axis=alt.Axis(title='Ratio (Women/Men)')),
-        tooltip=['GEO:N', 'Ratio:Q']
+        tooltip=['GEO:N', 'Ratio:Q'],
     ).properties(
-        title='Number of Men and Women in Executive Positions in {} Over the Years'.format(prov),
+        title='Ratio of Women v/s Men in Executive Positions in {} Over the Years'.format(prov),
         width=1200,
         height=200
     )

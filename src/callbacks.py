@@ -2,9 +2,12 @@ import altair as alt
 import pandas as pd
 import plotly.graph_objs as go
 from dash import Output, Input, callback
+import dash_bootstrap_components as dbc
+
 
 from data import df
 
+# Server side callbacks/reactivity
 # Server side callbacks/reactivity
 @callback(
     Output('card-women', 'children'),
@@ -13,36 +16,36 @@ from data import df
     Input('industry-filter', 'value'),
     Input('year-filter', 'value'),
 )
-# def calculate_proportion(province_filter, industry_filter, year_filter):
+def calculate_proportion(province_filter, industry_filter, year_filter):
 
-#     # Implementing filtering based on widgets
-#     # Bug with filtering everything at once - will filter step wise until I find a solution
-#     geo_filtered_data = df[df['GEO'] == province_filter]
-#     industry_filtered_data = geo_filtered_data[geo_filtered_data['Industry'] == industry_filter]
-#     filtered_data = industry_filtered_data[industry_filtered_data['REF_DATE'] == year_filter]  # Final filter
+    # Implementing filtering based on widgets
+    # Bug with filtering everything at once - will filter step wise until I find a solution
+    geo_filtered_data = df[df['GEO'] == province_filter]
+    industry_filtered_data = geo_filtered_data[geo_filtered_data['Industry'] == industry_filter]
+    filtered_data = industry_filtered_data[industry_filtered_data['REF_DATE'] == year_filter]  # Final filter
 
-#     women_card_df = filtered_data.query('Gender == "Women"')
-#     men_card_df = filtered_data.query('Gender == "Men"')
-#     total_people = filtered_data['VALUE'].sum()
-#     total_women = women_card_df['VALUE'].sum()
-#     total_men = men_card_df['VALUE'].sum()
-#     prop_women = (total_women / total_people) * 100
-#     prop_men = (total_men / total_people) * 100
+    women_card_df = filtered_data.query('Gender == "Women"')
+    men_card_df = filtered_data.query('Gender == "Men"')
+    total_people = filtered_data['VALUE'].sum()
+    total_women = women_card_df['VALUE'].sum()
+    total_men = men_card_df['VALUE'].sum()
+    prop_women = (total_women / total_people) * 100
+    prop_men = (total_men / total_people) * 100
 
-#     card_women_content = [
-#         dbc.CardHeader('Overall Proportion of Women in this Subset (%)'),
-#         dbc.CardBody(f'{round(prop_women, 2)} %')
-#     ]
-#     card_men_content = [
-#         dbc.CardHeader('Overall Proportion of Men in this Subset (%)'),
-#         dbc.CardBody(f'{round(prop_men, 2)} %')
-#     ]
-#     return card_women_content, card_men_content
+    card_women_content = [
+        dbc.CardHeader('Overall Proportion of Women in this Subset (%)'),
+        dbc.CardBody(f'{round(prop_women, 2)} %')
+    ]
+    card_men_content = [
+        dbc.CardHeader('Overall Proportion of Men in this Subset (%)'),
+        dbc.CardBody(f'{round(prop_men, 2)} %')
+    ]
+    return card_women_content, card_men_content
 
 
 
 # Server side callbacks/reactivity
-@app.callback(
+@callback(
     Output('bar2-chart', 'figure'),
     [Input('year-filter', 'value'),
      Input('province-filter', 'value')]
@@ -121,7 +124,7 @@ def create_chart(prov, selected_year):
         labelAngle=0
     ).to_dict()
 
-@app.callback(
+@callback(
     Output('bar-chart', 'figure'),
     [Input('year-filter', 'value'),
      Input('province-filter', 'value')]

@@ -10,27 +10,8 @@ from data import df
 
 
 ### Make the map of Canada
-new_df = df[(df['Type of corporation'] == 'Total all corporations') & 
-            (df['Industry'] == 'Total all industries') & 
-            (df["Size of enterprise"] == "Total all sizes") &
-            (df["Executive"] == "All officers\xa0") &
-            (df["GEO"] != "Canada, total")
-].copy()
-
-new_df_sum = pd.DataFrame(new_df.groupby(['GEO','Gender'])['VALUE'].sum().unstack())
-new_df_sum['prop_women'] = new_df_sum['Women']/(new_df_sum['Women']+new_df_sum['Men'])
-new_df_sum = new_df_sum.fillna(0)
-
-url = 'https://naciscdn.org/naturalearth/50m/cultural/ne_50m_admin_1_states_provinces.zip'
-world_regions = gpd.read_file(url)
-
-canadian_provinces = world_regions.query("iso_a2 == 'CA'")[['wikipedia', 'name', 'region', 'postal', 'latitude', 'longitude', 'geometry']]
-
-canadian_provinces = canadian_provinces.merge(new_df_sum, left_on = 'name', right_on = 'GEO')
-
-# canadian_provinces = canadian_provinces[['name','postal','latitude','longitude','geometry','Men','Women','prop_women']]
-canadian_provinces.prop_women = canadian_provinces.prop_women.round(2)
-canadian_provinces
+# Map data loaded
+canadian_provinces = gpd.read_file('data/filtered/map_chart_data.geojson')
 
 # Plotting the map of Canada and the 
 map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
@@ -57,6 +38,10 @@ combined_chart = (map_chart+labels).properties(
 ).configure_legend(
     orient='bottom'
 )
+
+
+
+
 
 #Calculate proportions for cards
 # Server side callbacks/reactivity

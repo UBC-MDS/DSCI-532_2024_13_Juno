@@ -5,24 +5,19 @@ import altair as alt
 import pandas as pd
 import plotly.graph_objs as go
 
-# Filter the data for a pie chart by province and year
+
 df = pd.read_csv("data/raw/filtered_canada.csv")
 
-new_df = df[(df['Type of corporation'] == 'Total all corporations') & 
-            (df['Industry'] == 'Total all industries') & 
-            (df["Size of enterprise"] == "Total all sizes") &
+new_df = df[(df["Size of enterprise"] == "Total all sizes") &
             (df["Unit of measure"] == "Number") &
             (df["Executive"] == "All officers\xa0") &
             (df["GEO"] != "Unclassified province or territory")
 ].copy()
-new_df = new_df.loc[:, ["REF_DATE", "Gender", "GEO", "VALUE"]]
-new_df.head()
+new_df = new_df.loc[:, ["REF_DATE", "Gender", "GEO", "VALUE", "Industry", "Type of corporation"]]
 
-new_df.to_csv('data/filtered/province_data.csv', index=False)
-new_df["GEO"].unique()
-df = pd.read_csv('data/filtered/province_data.csv')
-#############
+new_df.to_csv('data/filtered/filtered_data.csv', index=False)
 
+df = pd.read_csv('data/filtered/filtered_data.csv')
 
 
 
@@ -151,7 +146,8 @@ def update_chart(year, province):
      Input('year-filter', 'value')]
 )
 def create_chart(prov, selected_year):
-    filtered_df = df[(df["GEO"] == prov)]
+
+    filtered_df =df[(df["GEO"] == prov) & (df['Industry'] == 'Total all industries') & (df['Type of corporation'] == 'Total all corporations')]
 
     canada_total = {
     'Year': [2016, 2017, 2018, 2019, 2020],
@@ -207,7 +203,7 @@ def create_chart(prov, selected_year):
 )
 def update_chart(year, province):
     # Filter the DataFrame based on selected year and province
-    filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province)]
+    filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province) & (df["Type of corporation"] != "Total all corporations")]
 
     # Group the filtered DataFrame by 'Type of corporation' and 'Gender' and count occurrences
     grouped_df = filtered_df.groupby(['Type of corporation', 'Gender'])['VALUE'].sum().unstack(fill_value=0)

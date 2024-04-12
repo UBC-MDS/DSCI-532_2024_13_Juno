@@ -97,7 +97,7 @@ def calculate_proportion(province_filter, industry_filter, year_filter):
 
     # Implementing filtering based on widgets
     # Bug with filtering everything at once - will filter step wise until I find a solution
-    geo_filtered_data = card_data[card_data['GEO'] == province_filter]
+    geo_filtered_data = df[df['GEO'] == province_filter]
     industry_filtered_data = geo_filtered_data[geo_filtered_data['Industry'] == industry_filter]
     filtered_data = industry_filtered_data[industry_filtered_data['REF_DATE'] == year_filter]  # Final filter
 
@@ -128,7 +128,6 @@ def calculate_proportion(province_filter, industry_filter, year_filter):
      Input('province-filter', 'value')]
 )
 def update_chart(year, province):
-    df = pd.read_csv('data/filtered/bar_chart2_data.csv')
     # Filter the DataFrame based on selected year and province
     filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province)]
 
@@ -207,7 +206,6 @@ def create_chart(prov, selected_year):
      Input('province-filter', 'value')]
 )
 def update_chart(year, province):
-    df = pd.read_csv('data/filtered/bar_chart_data.csv')
     # Filter the DataFrame based on selected year and province
     filtered_df = df[(df["REF_DATE"] == year) & (df["GEO"] == province)]
 

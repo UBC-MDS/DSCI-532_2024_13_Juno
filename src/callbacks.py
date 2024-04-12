@@ -4,10 +4,61 @@ import plotly.graph_objs as go
 from dash import Output, Input, callback
 import dash_bootstrap_components as dbc
 
+import geopandas as gpd
 
 from data import df
 
-# Server side callbacks/reactivity
+
+### Make the map of Canada
+new_df = df[(df['Type of corporation'] == 'Total all corporations') & 
+            (df['Industry'] == 'Total all industries') & 
+            (df["Size of enterprise"] == "Total all sizes") &
+            (df["Executive"] == "All officers\xa0") &
+            (df["GEO"] != "Canada, total")
+].copy()
+
+new_df_sum = pd.DataFrame(new_df.groupby(['GEO','Gender'])['VALUE'].sum().unstack())
+new_df_sum['prop_women'] = new_df_sum['Women']/(new_df_sum['Women']+new_df_sum['Men'])
+new_df_sum = new_df_sum.fillna(0)
+
+url = 'https://naciscdn.org/naturalearth/50m/cultural/ne_50m_admin_1_states_provinces.zip'
+world_regions = gpd.read_file(url)
+
+canadian_provinces = world_regions.query("iso_a2 == 'CA'")[['wikipedia', 'name', 'region', 'postal', 'latitude', 'longitude', 'geometry']]
+
+canadian_provinces = canadian_provinces.merge(new_df_sum, left_on = 'name', right_on = 'GEO')
+
+# canadian_provinces = canadian_provinces[['name','postal','latitude','longitude','geometry','Men','Women','prop_women']]
+canadian_provinces.prop_women = canadian_provinces.prop_women.round(2)
+canadian_provinces
+
+# Plotting the map of Canada and the 
+map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
+    'transverseMercator',
+    rotate=[90, 0, 0]
+).encode(
+    tooltip=['name','prop_women'],
+    color=alt.Color('prop_women', 
+                    scale=alt.Scale(domain=[0, 1], 
+                                    scheme='viridis'), 
+                    title='Proportion of Women')
+)
+
+labels = alt.Chart(canadian_provinces).mark_text().encode(
+    longitude='longitude:Q',
+    latitude='latitude:Q',
+    text='postal',
+    size=alt.value(15),
+    opacity=alt.value(1),
+)
+
+combined_chart = (map_chart+labels).properties(
+    title = "Overall Proportion Across Provinces",
+).configure_legend(
+    orient='bottom'
+)
+
+#Calculate proportions for cards
 # Server side callbacks/reactivity
 @callback(
     Output('card-women', 'children'),
@@ -43,7 +94,7 @@ def calculate_proportion(province_filter, industry_filter, year_filter):
     return card_women_content, card_men_content
 
 
-
+# Industry bar chart
 # Server side callbacks/reactivity
 @callback(
     Output('bar2-chart', 'figure'),
@@ -68,6 +119,7 @@ def update_chart(year, province):
 
     return {'data': data, 'layout': layout}
 
+# Line chart
 @callback(
     Output('line-chart', 'spec'),
     [Input('province-filter', 'value'),
@@ -124,6 +176,7 @@ def create_chart(prov, selected_year):
         labelAngle=0
     ).to_dict()
 
+# Corporation bar chart
 @callback(
     Output('bar-chart', 'figure'),
     [Input('year-filter', 'value'),

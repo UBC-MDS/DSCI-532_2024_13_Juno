@@ -11,6 +11,7 @@ import geopandas as gpd
 canadian_provinces = gpd.read_file('data/filtered/map_chart_data.geojson')
 
 # Plotting the map of Canada and the 
+hover = alt.selection_point(fields=['name'], on='pointerover', empty=False)
 map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
     'transverseMercator',
     rotate=[90, 0, 0]
@@ -19,8 +20,13 @@ map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(
     color=alt.Color('prop_women', 
                     scale=alt.Scale(domain=[0, 1], 
                                     scheme='viridis'), 
-                    title='Proportion of Women')
+                    title='Proportion of Women'),
+    stroke=alt.condition(hover, alt.value('white'), alt.value('#222222')),  # If hovering, stroke white, otherwise black
+    order=alt.condition(hover, alt.value(1), alt.value(0))  # Show the hovered stroke on top
+).add_params(
+    hover
 )
+
 
 labels = alt.Chart(canadian_provinces).mark_text().encode(
     longitude='longitude:Q',
@@ -34,6 +40,8 @@ combined_chart = (map_chart+labels).properties(
     title = "Overall Proportion Across Provinces",
 ).configure_legend(
     orient='bottom'
+).configure_title(
+    fontSize=25  
 )
 
 

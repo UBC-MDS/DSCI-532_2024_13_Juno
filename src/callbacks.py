@@ -7,40 +7,41 @@ import dash_bootstrap_components as dbc
 import geopandas as gpd
 
 from data import df
-
+from data import canadian_provinces
 
 ### Make the map of Canada
-# Map data loaded
-canadian_provinces = gpd.read_file('data/filtered/map_chart_data.geojson')
 
 # Plotting the map of Canada and the 
-map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
-    'transverseMercator',
-    rotate=[90, 0, 0]
-).encode(
-    tooltip=['name','prop_women'],
-    color=alt.Color('prop_women', 
-                    scale=alt.Scale(domain=[0, 1], 
-                                    scheme='viridis'), 
-                    title='Proportion of Women')
+
+@callback(
+    Output('map', 'spec'),
+    Input('year-filter', 'value'),
 )
+def combined_chart(placeholder):
+    map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
+        'transverseMercator',
+        rotate=[90, 0, 0]
+    ).encode(
+        tooltip=['name','prop_women'],
+        color=alt.Color('prop_women', 
+                        scale=alt.Scale(domain=[0, 1], 
+                                        scheme='viridis'), 
+                        title='Proportion of Women')
+    )
 
-labels = alt.Chart(canadian_provinces).mark_text().encode(
-    longitude='longitude:Q',
-    latitude='latitude:Q',
-    text='postal',
-    size=alt.value(15),
-    opacity=alt.value(1),
-)
-
-combined_chart = (map_chart+labels).properties(
-    title = "Overall Proportion Across Provinces",
-).configure_legend(
-    orient='bottom'
-)
-
-
-
+    labels = alt.Chart(canadian_provinces).mark_text().encode(
+        longitude='longitude:Q',
+        latitude='latitude:Q',
+        text='postal',
+        size=alt.value(15),
+        opacity=alt.value(1),
+    )
+    combined_chart = (map_chart+labels).properties(
+        title = "Overall Proportion Across Provinces",
+    ).configure_legend(
+        orient='bottom'
+    )
+    return combined_chart.to_dict()
 
 
 #Calculate proportions for cards

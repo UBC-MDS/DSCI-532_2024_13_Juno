@@ -6,6 +6,7 @@ import dash_vega_components as dvc
 from data import df
 
 
+
 title = [html.H1('Juno: Gender Equality in Executive Positions Across Canada'), html.Br()]
 province_columns = df['GEO'].unique()#.remove('Unclassified province or territory')
 province_columns = province_columns[province_columns!='Unclassified province or territory']
@@ -34,3 +35,8 @@ line_chart = dvc.Vega(id='line-chart')
 
 barchart = dbc.Col(dcc.Graph(id='bar-chart'))
 barchart2 = dbc.Col(dcc.Graph(id='bar2-chart'))
+
+
+placeholder = html.P(id='placeholder-filter')
+
+map = dvc.Vega(id = "map")

@@ -7,7 +7,7 @@ import plotly.graph_objs as go
 
 from data import df
 import callbacks
-from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2
+from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2, map
 
 
 
@@ -43,7 +43,9 @@ app.layout = dbc.Container([
             style={'font-size': '12px', 'margin-bottom': '10px'}),        
         html.P('Last updated on April 6, 2024.', style={'font-size': '12px', 'margin-bottom': '10px'}),
         html.A('The source code can be found on GitHub.', href='https://github.com/UBC-MDS/DSCI-532_2024_13_Juno', style={'font-size': '14px', 'margin-bottom': '10px'})
-    ])
+    ]), 
+    dbc.Row (([dvc.Vega(id="map",opt = {"rendered":"svg", "actions":False})]))
+
 ])
 
 if __name__ == '__main__':

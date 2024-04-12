@@ -1,4 +1,6 @@
 import pandas as pd
+import geopandas as gpd
+
 
 df = pd.read_csv("data/raw/filtered_canada.csv")
 
@@ -13,3 +15,4 @@ new_df.to_csv('data/filtered/filtered_data.csv', index=False)
 
 df = pd.read_csv('data/filtered/filtered_data.csv')
 
+canadian_provinces = gpd.read_file('data/filtered/map_chart_data.geojson')

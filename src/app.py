@@ -27,9 +27,10 @@ app.layout = dbc.Container([
             ],
             sm= "6"
         ),
-        dbc.Row(dvc.Vega(id='line-chart')),
-        dbc.Row([dbc.Col(dcc.Graph(id='bar-chart')), dbc.Col(dcc.Graph(id='bar2-chart'))])
-    ]),
+    ]), 
+    dbc.Row([dbc.Col(dvc.Vega(id="map",opt = {"rendered":"svg", "actions":False}))]),
+    dbc.Row([dbc.Col(dvc.Vega(id='line-chart'))]),
+    dbc.Row([dbc.Col(dcc.Graph(id='bar-chart')), dbc.Col(dcc.Graph(id='bar2-chart'))]),
     html.Footer([
         html.P(''),
         html.Hr(),
@@ -43,8 +44,7 @@ app.layout = dbc.Container([
             style={'font-size': '12px', 'margin-bottom': '10px'}),        
         html.P('Last updated on April 6, 2024.', style={'font-size': '12px', 'margin-bottom': '10px'}),
         html.A('The source code can be found on GitHub.', href='https://github.com/UBC-MDS/DSCI-532_2024_13_Juno', style={'font-size': '14px', 'margin-bottom': '10px'})
-    ]), 
-    dbc.Row (([dvc.Vega(id="map",opt = {"rendered":"svg", "actions":False})]))
+    ]),
 
 ])
 

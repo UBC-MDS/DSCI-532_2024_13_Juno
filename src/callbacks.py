@@ -18,6 +18,7 @@ from data import canadian_provinces
     Input('year-filter', 'value'),
 )
 def combined_chart(placeholder):
+    hover = alt.selection_point(fields=['name'], on='pointerover', empty=False)
     map_chart = alt.Chart(canadian_provinces, width= 800, height=600).mark_geoshape(stroke='white').project(
         'transverseMercator',
         rotate=[90, 0, 0]
@@ -26,7 +27,11 @@ def combined_chart(placeholder):
         color=alt.Color('prop_women', 
                         scale=alt.Scale(domain=[0, 1], 
                                         scheme='viridis'), 
-                        title='Proportion of Women')
+                        title='Proportion of Women'),
+        stroke=alt.condition(hover, alt.value('white'), alt.value('#222222')),  # If hovering, stroke white, otherwise black
+        order=alt.condition(hover, alt.value(1), alt.value(0))  # Show the hovered stroke on top
+    ).add_params(
+        hover
     )
 
     labels = alt.Chart(canadian_provinces).mark_text().encode(
@@ -40,6 +45,10 @@ def combined_chart(placeholder):
         title = "Overall Proportion Across Provinces",
     ).configure_legend(
         orient='bottom'
+    )
+    combined_chart = combined_chart.properties(
+        width=1000,
+        height=500
     )
     return combined_chart.to_dict()
 

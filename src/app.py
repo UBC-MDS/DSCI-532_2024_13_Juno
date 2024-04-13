@@ -9,7 +9,7 @@ from data import df
 import callbacks
 from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2, map
 # Adding new components in a new line so it is easier to isolate anything new which might be causing problems
-from components import juno_explanation
+from components import juno_explanation, dataset_description, project_description
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -18,7 +18,9 @@ server = app.server
 # Layout
 app.layout = dbc.Container([
     dbc.Row(dbc.Col(title)),
+    dbc.Row(dbc.Col(project_description)),
     dbc.Row(dbc.Col(juno_explanation)),
+    dbc.Row(dbc.Col(dataset_description)),
     dbc.Row([
         dbc.Col(global_widgets, md=6),
         dbc.Col([
@@ -33,15 +35,16 @@ app.layout = dbc.Container([
     html.Footer([
         html.P(''),
         html.Hr(),
-        html.P(
-            'This project scrutinizes the gender disparity in top-level leadership roles within Canadian corporations '
-            'across multiple sectors. Leveraging gender-disaggregated data, we aim to reveal the potential influence '
-            'of gender balance in decision-making roles on more effective and inclusive policies. The displayed dashboards '
-            'are filtered based on the selected tags, showing only those that match all selected tags. Tag counts are updated '
-            'dynamically to reflect the number of visible dashboards after filtering. For optimal viewing, this dashboard '
-            'is recommended for a full-width window.',
-            style={'font-size': '12px', 'margin-bottom': '10px'}),        
-        html.P('Last updated on April 6, 2024.', style={'font-size': '12px', 'margin-bottom': '10px'}),
+        # Transferred information to the top
+        # html.P(
+        #     'This project scrutinizes the gender disparity in top-level leadership roles within Canadian corporations '
+        #     'across multiple sectors. Leveraging gender-disaggregated data, we aim to reveal the potential influence '
+        #     'of gender balance in decision-making roles on more effective and inclusive policies. The displayed dashboards '
+        #     'are filtered based on the selected tags, showing only those that match all selected tags. Tag counts are updated '
+        #     'dynamically to reflect the number of visible dashboards after filtering. For optimal viewing, this dashboard '
+        #     'is recommended for a full-width window.',
+        #     style={'font-size': '12px', 'margin-bottom': '10px'}),        
+        html.P('Last updated on April 13, 2024.', style={'font-size': '12px', 'margin-bottom': '10px'}),
         html.A('The source code can be found on GitHub.', href='https://github.com/UBC-MDS/DSCI-532_2024_13_Juno', style={'font-size': '14px', 'margin-bottom': '10px'})
     ]),
 

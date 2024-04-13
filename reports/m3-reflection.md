@@ -16,4 +16,4 @@ On the coding side, we modularized our code, making the app.py script cleaner an
 
 The new chloropleth looks good and provides important context, as well as a good general overview of each province's performance, which we believe will be useful to users. We are happy with the formatting changes we made, and grateful for the feedback which sparked these changes.
 
-We are planning to add one more card to show the overall ratio of females to males in the subset, and potentially, to make the separation between the cards and charts clearer by adding a border. Furthermore, if it is feasible, we might add the text to a pop-up menu to minimize the need for scrolling. We might also make minor formatting changes in the coming week.
+We are planning to add one more card to show the overall ratio of females to males in the subset, and potentially, to make the separation between the cards and charts clearer by adding a border. Furthermore, if it is feasible, we might add the text to a pop-up menu to minimize the need for scrolling, and to reduce clutter in our dashboard. We might also make minor formatting changes in the coming week.

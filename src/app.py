@@ -9,7 +9,7 @@ from data import df
 import callbacks
 from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2, map
 # Adding new components in a new line so it is easier to isolate anything new which might be causing problems
-from components import juno_explanation, dataset_description, project_description
+from components import juno_explanation, dataset_description, project_description, card_ratio
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -24,7 +24,7 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(global_widgets, md=6),
         dbc.Col([
-                dbc.Card([dbc.Col(industry), dbc.Col(card_women), dbc.Col(card_men)])
+                dbc.Card([dbc.Col(industry), dbc.Col(card_women), dbc.Col(card_men), dbc.Col(card_ratio)])
             ],
             sm= "6",
             style={

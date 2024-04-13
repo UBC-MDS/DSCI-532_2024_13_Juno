@@ -26,7 +26,12 @@ app.layout = dbc.Container([
         dbc.Col([
                 dbc.Card([dbc.Col(industry), dbc.Col(card_women), dbc.Col(card_men)])
             ],
-            sm= "6"
+            sm= "6",
+            style={
+        'background-color': '#F5F5F5',
+        'padding': 15,
+        'border-radius': 3
+    }
         ),
     ]), 
     dbc.Row([dbc.Col(dvc.Vega(id="map",opt = {"rendered":"svg", "actions":False}))]),

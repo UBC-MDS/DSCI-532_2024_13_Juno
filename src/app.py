@@ -9,17 +9,25 @@ from data import df
 import callbacks
 from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2, map
 # Adding new components in a new line so it is easier to isolate anything new which might be causing problems
-from components import juno_explanation, dataset_description, project_description
+from components import juno_explanation, dataset_description, project_description, collapse_button, collapse_section
+from dash import State
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 # Layout
+
 app.layout = dbc.Container([
-    dbc.Row(dbc.Col(title)),
-    dbc.Row(dbc.Col(project_description)),
-    dbc.Row(dbc.Col(juno_explanation)),
+    dbc.Row([
+        dbc.Col(title),
+        dbc.Col(collapse_button, md=3),
+    ]),
+    dbc.Row([
+        dbc.Col(collapse_section)
+    ]),
+    # dbc.Row(dbc.Col(project_description)),
+    # dbc.Row(dbc.Col(juno_explanation)),
     dbc.Row(dbc.Col(dataset_description)),
     dbc.Row([
         dbc.Col(global_widgets, md=6),

@@ -12,7 +12,7 @@ Based on peer feedback, we also added a short description about the purpose of o
 
 On the coding side, we modularized our code, making the app.py script cleaner and more readable, while also preventing the file from growing too big.
 
-# Strengths and Improvements
+## Strengths and Improvements
 
 The new chloropleth looks good and provides important context, as well as a good general overview of each province's performance, which we believe will be useful to users. We are happy with the formatting changes we made, and grateful for the feedback which sparked these changes.
 

@@ -8,6 +8,7 @@ from data import df
 
 
 title = [html.H1('Juno: Gender Equality in Executive Positions Across Canada'), html.Br()]
+dataset_description = [html.P('This project scrutinizes the gender disparity in top-level leadership roles within Canadian corporations across multiple sectors. Leveraging gender-disaggregated data, we aim to reveal the potential influence of gender balance in decision-making roles on more effective and inclusive policies.'), html.Br()]
 province_columns = df['GEO'].unique()#.remove('Unclassified province or territory')
 province_columns = province_columns[province_columns!='Unclassified province or territory']
 industry_columns = df['Industry'].unique()

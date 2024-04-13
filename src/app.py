@@ -8,6 +8,8 @@ import plotly.graph_objs as go
 from data import df
 import callbacks
 from components import title, global_widgets, card_women, card_men, industry, line_chart, barchart, barchart2, map
+# Adding new components in a new line so it is easier to isolate anything new which might be causing problems
+from components import juno_explanation
 
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -16,6 +18,7 @@ server = app.server
 # Layout
 app.layout = dbc.Container([
     dbc.Row(dbc.Col(title)),
+    dbc.Row(dbc.Col(juno_explanation)),
     dbc.Row([
         dbc.Col(global_widgets, md=6),
         dbc.Col([

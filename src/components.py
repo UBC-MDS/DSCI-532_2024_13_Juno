@@ -9,6 +9,7 @@ from data import df
 
 title = [html.H1('Juno: Gender Equality in Executive Positions Across Canada'), html.Br()]
 dataset_description = [html.P('This project scrutinizes the gender disparity in top-level leadership roles within Canadian corporations across multiple sectors. Leveraging gender-disaggregated data, we aim to reveal the potential influence of gender balance in decision-making roles on more effective and inclusive policies.'), html.Br()]
+juno_explanation = [html.P("Ancient Romans worshipped Juno as the queen of the gods, the female counterpart to the chief of the gods, Jupiter. Since our app looks at the gender makeup of the top-level management in companies across Canada, we felt that Juno, as the CEO/COO equivalent of the Roman pantheon, would be a good representation of the female leaders we are highlighting in our data set. Furthermore, Juno's close association with women and her status as the protector of women resonates with our more aspirational goal, which is to uncover potential areas for improving inclusivity and gender equality in Canadian corporations. As a champion of women, and a prominent female leader herself, we feel that Juno is a good symbol of what we strive to achieve with this app. We have thus named our app after her."), html.Br()]
 province_columns = df['GEO'].unique()#.remove('Unclassified province or territory')
 province_columns = province_columns[province_columns!='Unclassified province or territory']
 industry_columns = df['Industry'].unique()

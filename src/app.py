@@ -22,7 +22,7 @@ app.layout = dbc.Container([
     dbc.Row(dbc.Col(juno_explanation)),
     dbc.Row(dbc.Col(dataset_description)),
     dbc.Row([
-        dbc.Col(global_widgets, md=6),
+        dbc.Col(global_widgets, md=6), # bear with the squishing for now
         dbc.Col([
                 dbc.Card([dbc.Col(industry), dbc.Col(card_women), dbc.Col(card_men), dbc.Col(card_ratio)])
             ],
@@ -35,6 +35,16 @@ app.layout = dbc.Container([
         ),
     ]), 
     dbc.Row([dbc.Col(dvc.Vega(id="map",opt = {"rendered":"svg", "actions":False}))]),
+#     dbc.Row([
+#     dbc.Col(industry, width=3),
+#     dbc.Col(card_women, width=3),
+#     dbc.Col(card_men, width=3),
+#     dbc.Col(card_ratio, width=3)
+# ], style={
+#     'background-color': '#F5F5F5',
+#     'padding': 15,
+#     'border-radius': 3
+# }),
     dbc.Row([dbc.Col(dvc.Vega(id='line-chart'))]),
     dbc.Row([dbc.Col(dcc.Graph(id='bar-chart')), dbc.Col(dcc.Graph(id='bar2-chart'))]),
     html.Footer([

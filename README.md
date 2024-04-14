@@ -2,6 +2,8 @@
 [![](https://img.shields.io/badge/language-Python-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
+![demo-milestone3](img/gender_equality.jpg)
+
 Members:
 - Riya Shaju
 - Gretel Tan

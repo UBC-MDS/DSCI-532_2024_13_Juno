@@ -2,7 +2,7 @@
 [![](https://img.shields.io/badge/language-Python-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-![demo-milestone3](img/gender_equality.jpg){width="70%"}
+![demo-milestone3](img/gender_equality.jpg){:height="70%" width="70%"}
 [source](https://thecityjournal.net/showcase/gender-diversity-workplace/attachment/hires/)
 
 Members:

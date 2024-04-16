@@ -17,6 +17,7 @@ replacement_dict = {'Government business entities': 'Government',
                     'Private enterprises': 'Private', 
                     'Unclassified enterprises': 'Unclassified',
                     'Total all corporations': 'Total'}
+
 replacement_df = new_df.copy()
 replacement_df['Type of corporation'] = replacement_df['Type of corporation'].map(replacement_dict)
 
@@ -35,6 +36,7 @@ replacement_dict_2 = {'Finance': 'Finance',
 replacement_df['Industry'] = replacement_df['Industry'].map(replacement_dict_2)
 
 replacement_df.to_csv('data/filtered/filtered_data_replaced.csv', index=False)
+
 new_df.to_csv('data/filtered/filtered_data.csv', index=False)
 
 df = pd.read_csv('data/filtered/filtered_data.csv')

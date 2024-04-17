@@ -56,7 +56,7 @@ card_men = dbc.Card(id='card-men')
 card_ratio = dbc.Card(id='card-ratio')
 
 
-industry = dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries'),
+industry = dcc.Dropdown(id='industry-filter', options=industry_columns, value='Total all industries', clearable=False),
 
 
 

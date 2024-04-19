@@ -52,6 +52,8 @@ app.layout = dbc.Container([
             dbc.Col(global_widget_2)])
             ]),
             ]),
+    html.Br(),
+    html.Br(),
     dbc.Row([
         dbc.Col(dvc.Vega(id='line-chart'), md =5),
                 # style={"margin-top": "10px", 

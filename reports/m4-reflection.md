@@ -8,10 +8,10 @@ We made major layout and stylistic changes based on feedback from both our peers
 
 ## Reflection on Useful Feedback
 
-We appreciated all the feedback which we got. Among all the feedback we received, we found the feedback on preferred layouts and formats to be most useful, as we were not able to see the dashboard with fresh eyes prior to hearing from Joel and our peers. Through this, we were able to better understand how different users might find most intuitive in navigating the app, and make changes to improve the overall user experience.
+We appreciated all the feedback we received, as the feedback was professionally worded and well-structured, such that we were able to take concrete action based on the information. Among all the feedback we received, we found the feedback on preferred layouts and formats to be most useful, as we were not able to see the dashboard with fresh eyes prior to hearing from Joel and our peers. Through this, we were able to better understand how different users might find most intuitive in navigating the app, and make changes to improve the overall user experience. Perhaps more feedback on additional charts or statistics users might be interested in would have also been useful, especially if the feedback comes from someone with a fresh perspective.
 
 ## Strengths and Future Improvements
 
--   
--   Reflect on what you think your dashboard does well currently what its limitations are, and what are good potential future improvements and additions that you would have implemented if you had more time.
--   This section should not be more than 500 words and be written to the file `reports/m4-reflection.md` in your GitHub repo.
+We are pleased with our dashboard, as it looks good and performs well, loading quickly both locally and on Render. After making the layout changes suggested by our peers and Joel, we feel that the dashboard is even more intuitive and aesthetically pleasing. We see great potential
+
+Given more time, we would have liked to explore different kinds of engineered features and charts. We were toying with the idea of a separate section, perhaps in separate tabs to avoid crowding the page, which would allow users to compare charts and statistics from different industries or provinces against averages from all other industries or provinces. This might be informative for users who might want to do an even deeper dive into the trends in a subset of data, and the comparison not just to the Canadian national average, but to the average of all other industries might also provide insightful directions for exploration in policymaking. These could be future additions to our dashboard.

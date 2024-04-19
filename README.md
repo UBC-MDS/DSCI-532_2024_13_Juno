@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
 4.  Render the dashboard locally
 
-    **Note:** Please go to the `data.py` file and update the path by removing "../" from the file paths.
+    **Note:** Please go to the `data.py` file in the `src` folder and update the paths by removing "../" from the file paths.
 
 ```         
 python src/app.py
